@@ -85,6 +85,7 @@ $lang["fieldtype-dynamic_keywords_list"] = "Dynamic keywords list";
 $lang["fieldtype-radio_buttons"] = "Radio buttons";
 $lang["fieldtype-warning_message"] = "Warning message";
 $lang["fieldtype-date_range"] = "Date Range";
+$lang["fieldtype-geo_location"] = "Geolocation";
 
 # Property labels (for the default properties)
 $lang["property-reference"] = "Reference";
@@ -180,6 +181,13 @@ $lang["information-derestrict_filter"] = "Derestrict filter. Intended for use in
 $lang["information-push_metadata"] = "If set, the metadata for this resource will be displayed on the resource view page for any related resources. For example, you may relate several photos to a person resource. If this property is set on the person resource, then the person metadata will appear on all related photo resource records, avoiding duplication of data in the system.";
 $lang["property-sort_method"] = "Sort Method";
 $lang["information-sort_method"] = "Ordering to use when displaying search results ordered by this field.";
+$lang["property-geomapping"] = "Geolocation type";
+$lang["information-geomapping"] = "Store the geolocation in this field as either latitude, longitude, or both.<br />Only a single field can be set to both or one field to each latitude and longitude.<br />Only available for singe line text fields.";
+$lang["disabled-geomapping-title"] = "Geomapping is set to a different field or fields, to change it to this field it must be removed from other fields";
+$lang["geo_location-none"] = "None";
+$lang["geo_location-latitude"] = "Latitude";
+$lang["geo_location-longitude"] = "Longitude";
+$lang["geo_location-both"] = "Both";
 $lang["property-query"] = "Query";
 
 $lang["information-id"] = "Note: 'Id' below MUST be set to a three character unique code.";
@@ -1359,12 +1367,6 @@ $lang["setup-login_to"] = "Login to";
 $lang["setup-configuration_file_output"] = "Configuration file output";
 $lang["more-information"] = "More information";
 $lang["setup-structuralplugins"] = "System templates";
-$lang["setup-headercolourstyleoverride"] = "Custom header background colour";
-$lang["setup-headerlinkstyleoverride"] = "Custom header link colour";
-$lang["setup-homecolourstyleoverride"] = "Custom intro text, dash tile, browse bar and simple search colour";
-$lang["setup-collectionbarbackground"] = "Custom collection bar primary colour";
-$lang["setup-collectionbarforeground"] = "Custom collection bar secondary colour";
-$lang["setup-buttoncolouroverride"] = "Custom button colour";
 
 # Collection log - actions
 $lang["collectionlog"] = "Collection log";
@@ -2082,6 +2084,9 @@ $lang["sort-method_default"] = "Default - Alphanumeric";
 $lang["sort-method_dot-notation"] = "Accession number - dot notation";
 $lang["save-error"] = "Error auto saving - please save manually";
 $lang["save-error-invalid"] = "Error auto saving - please review the content and try again";
+$lang["save-error-invalid-latlong"] = "Error auto saving - geolocation invalid, Use: latitude, longitude (e.g. 40.7128, -74.0060). Resource location has not been updated.";
+$lang["save-error-invalid-lat"] = "Error auto saving - geo latitude invalid, must be between -90 and 90. Resource location has not been updated.";
+$lang["save-error-invalid-long"] = "Error auto saving - geo longitude invalid, must be between -180 and 180. Resource location has not been updated.";
 $lang["save-conflict-error"] = "Edit conflict. Please reload the page";
 $lang["save-conflict-multiple"] = "Edit conflict. Please reload the page";
 $lang["save-conflict-title"] = "Edit conflict";
@@ -2870,6 +2875,10 @@ $lang['systemconfig_debug'] = 'Debug';
 $lang['systemconfig_debug_log_on_specific_user'] = "On (specific user)";
 $lang['systemconfig_use_native_input_for_date_field'] = "Use native date input for displaying a 'date' metadata field type";
 $lang['systemconfig_native_date_input_no_partials_supported'] = "IMPORTANT: If enabled, partial dates (e.g May 2023) will no longer be supported and existing data will get cleared after the next resource edit.";
+$lang["blue"] = "Blue";
+$lang["green"] = "Green";
+$lang["red"] = "Red";
+$lang["purple"] = "Purple";
 
 /* Error Messages */
 $lang['error_check_html_first'] = 'Please Check HTML! The text used does not contain valid HTML.';
