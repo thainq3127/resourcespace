@@ -188,9 +188,27 @@ ResourceSpace.Modules.Header = (() => {
 
     const nav = header?.querySelector('nav.primary-navigation');
     const list = nav?.querySelector(':scope > ul');
-    const panel = nav?.querySelector('ul.menu-panel');
+    let panel = nav?.querySelector('ul.menu-panel');
 
     function handlePrimaryNavigationOverflow() {
+        // Add the missing <li class="menu-overflow"><ul class="menu-panel" data-menu-panel role="menu" hidden></ul></li>
+        // that render_header_links() would create otherwise
+        if (list && !panel && getPrimaryNavigationLinkItems().length <= primaryNavOverflowThreshold) {
+            const li = document.createElement('li');
+            li.className = 'menu-overflow';
+
+            const ul = document.createElement('ul');
+            ul.className = 'menu-panel';
+            ul.setAttribute('data-menu-panel', '');
+            ul.setAttribute('role', 'menu');
+            ul.hidden = true;
+
+            li.appendChild(ul);
+
+            list.appendChild(li);
+            panel = nav?.querySelector('ul.menu-panel');
+        }
+
         if (!list || !panel || ResourceSpace.media.max('desktop').matches) return;
 
         restorePrimaryNavOverflowItems();
@@ -222,7 +240,7 @@ ResourceSpace.Modules.Header = (() => {
                 let elWidth = el.getBoundingClientRect().width; 
 
                 if (el.classList.contains('logo')) {
-                    elWidth = parseInt(getComputedStyle(el).maxWidth, 10);
+                    elWidth = parseInt(getComputedStyle(el).width, 10);
                 } else if(el.classList.contains('header-search-field')) {
                     // Same as CSS clamp rule for `#header-container .header-search-field`
                     elWidth = Math.min(Math.max(320, headerBB.width * 0.38), 400);
