@@ -931,7 +931,7 @@ jQuery(function () {
 
                             <div class="collection-bar-resource-card-image">
                                 <?php
-                                $colimgpath = get_resource_preview($result[$n], ['thm']);
+                                $colimgpath = get_resource_preview($result[$n], ['thm'], $access, $use_watermark);
                                 if ($colimgpath !== false && is_safe_url($colimgpath['url'])) {
                                     ?>
                                     <img border="0"

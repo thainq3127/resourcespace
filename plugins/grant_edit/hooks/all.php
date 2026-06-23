@@ -3,11 +3,16 @@
 function HookGrant_editAllCustomediteaccess($ref)
     {
     global $userref;
-    $access = ps_value("SELECT resource value FROM grant_edit WHERE resource = ? AND user = ? AND (expiry IS null OR expiry >= NOW())
-                        UNION 
-                        SELECT resource value FROM grant_edit ea JOIN user u ON u.usergroup = ea.usergroup WHERE resource = ? AND user = ? AND (expiry IS null OR expiry>=NOW())", array("i",$ref,"i",$userref, 'i', $ref, 'i', $userref), "");
-    if($access!=""){return true;}
-    return false;
+
+    if (!isset($GLOBALS['grant_edit_custom_edit_access'])){
+        $GLOBALS['grant_edit_custom_edit_access'] = ps_array(
+            "SELECT resource value FROM grant_edit WHERE user = ? AND (expiry IS null OR expiry >= NOW())
+            UNION
+            SELECT resource value FROM grant_edit ea JOIN user u ON u.usergroup = ea.usergroup WHERE user = ? AND (expiry IS null OR expiry >= NOW())"
+            , array('i', $userref, 'i', $userref));
+    }
+
+    return in_array($ref, $GLOBALS['grant_edit_custom_edit_access']);
     }
 
 function HookGrant_editAllModifysearcheditable($editable_filter, $user)

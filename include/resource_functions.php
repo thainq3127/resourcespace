@@ -5831,6 +5831,7 @@ function check_use_watermark($download_key = "", $resource = "")
         $watermark_open
         && (    ($pagename == "preview")
              || ($pagename == "view")
+             || ($pagename == "collections")
              || ($pagename == "search" && $watermark_open_search)
              || ($pagename == "download" && $terms_download && !download_link_check_key($download_key, $resource))
            )

@@ -1,12 +1,5 @@
 <?php
-# Work out image to use.
-if ($watermark !== '') {
-    $use_watermark = check_use_watermark();
-} else {
-    $use_watermark = false;
-}
-
-$thumbnail = get_resource_preview($result[$n], ["pre","thm"], $access, $watermark);
+$thumbnail = get_resource_preview($result[$n], ["pre","thm"], $access, $use_watermark);
 ?>
 <a
     id="ResourceStrip<?php echo $ref ?>"

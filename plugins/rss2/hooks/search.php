@@ -7,8 +7,14 @@ function HookRss2SearchRender_search_actions_add_option($options)
 
     if ($k=='')
         {
-        $querystring = "user=" . base64_encode($username) . "&search=" . $search . "&restypes=" .$restypes;
-        $querystring .= "&archive=" . $archive;
+        $querystring = http_build_query(
+            [
+                'user'      => base64_encode($username),
+                'search'    => $search,
+                'restypes'  => $restypes,
+                'archive'   => $archive
+            ]
+        );
         $private_key = get_api_key($userref);
 
         // Sign the query using the private key, this needs to be done un-encoded so that it is checked correctly

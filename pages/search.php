@@ -472,7 +472,13 @@ if ($old_search)
     $archive=implode(",",$selected_archive_states);
     }
     
-hook("searchparameterhandler"); 
+hook("searchparameterhandler");
+
+if ($watermark !== '') {
+    $use_watermark = check_use_watermark();
+} else {
+    $use_watermark = false;
+}
     
 # If requested, refresh the collection frame (for redirects from saves)
 if (getval("refreshcollectionframe","")!="")
@@ -1697,7 +1703,7 @@ if (!hook("replacesearchheader")) # Always show search header now.
     // Determine geolocation parameters for map search view.
     if (!$disable_geocoding && $display == "map")
         {
-        global $marker_metadata_field, $use_watermark;
+        global $marker_metadata_field;
 
         // Loop through search results.
         for ($n = 0; $n < $result_count; $n++)

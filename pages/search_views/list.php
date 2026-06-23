@@ -36,12 +36,12 @@ $resource_view_title = i18n_get_translated($result[$n]["field" . $view_title_fie
     }
 
     # Display thumbnail of resource
-    $watermark = check_use_watermark($ref);
+    $ref_watermark = check_use_watermark($ref);
     ?>
     <td width="40px">
         <a href="<?php echo $url; ?>" onClick="return <?php echo $resource_view_modal ? "Modal" : "CentralSpace"; ?>Load(this,true);">
             <?php
-            $thumbnail = get_resource_preview($result[$n], ["col"], $access, $watermark);
+            $thumbnail = get_resource_preview($result[$n], ["col"], $access, $ref_watermark);
 
             if ($thumbnail !== false) {
                 if ($result[$n]["thumb_height"] !== $thumbnail["height"] || $result[$n]["thumb_width"] !== $thumbnail["width"]) {

@@ -144,40 +144,42 @@ include "../../include/header.php";
     <?php
 }
 ?>
-<div class="TopInpageNav">
-    <div class="TopInpageNavLeft">
-        <div class="InpageNavLeftBlock"><?php echo escape($lang["actions-total"]) . ": <strong>" . $results; ?> </strong></div>
-        <div class="InpageNavLeftBlock"><?php echo escape($lang["resultsdisplay"])?>:
-            <?php
-            for ($n = 0; $n < count($list_display_array); $n++) {
-                if ($per_page == $list_display_array[$n]) { ?>
-                    <span class="Selected"><?php echo $list_display_array[$n]; ?></span>
+<div class="BasicsBox">
+    <div class="TopInpageNav">
+        <div class="TopInpageNavLeft">
+            <div class="InpageNavLeftBlock"><?php echo escape($lang["actions-total"]) . ": <strong>" . $results; ?> </strong></div>
+            <div class="InpageNavLeftBlock"><?php echo escape($lang["resultsdisplay"])?>:
+                <?php
+                for ($n = 0; $n < count($list_display_array); $n++) {
+                    if ($per_page == $list_display_array[$n]) { ?>
+                        <span class="Selected"><?php echo $list_display_array[$n]; ?></span>
+                        <?php
+                    } else { ?>
+                        <a
+                            href="<?php echo generateURL($baseurl . "/pages/user/user_actions.php", $url_params, array("per_page_list" => $list_display_array[$n])) ?>"
+                            onClick="return CentralSpaceLoad(this);">
+                            <?php echo $list_display_array[$n]; ?>
+                        </a>
+                        <?php
+                    } ?>&nbsp;|
+                    <?php
+                }
+
+                if ($per_page == 99999) { ?>
+                    <span class="Selected"><?php echo escape($lang["all"])?></span>
                     <?php
                 } else { ?>
                     <a
-                        href="<?php echo generateURL($baseurl . "/pages/user/user_actions.php", $url_params, array("per_page_list" => $list_display_array[$n])) ?>"
+                        href="<?php echo $url; ?>&per_page_list=99999"
                         onClick="return CentralSpaceLoad(this);">
-                        <?php echo $list_display_array[$n]; ?>
+                        <?php echo escape($lang["all"])?>
                     </a>
                     <?php
-                } ?>&nbsp;|
-                <?php
-            }
-
-            if ($per_page == 99999) { ?>
-                <span class="Selected"><?php echo escape($lang["all"])?></span>
-                <?php
-            } else { ?>
-                <a
-                    href="<?php echo $url; ?>&per_page_list=99999"
-                    onClick="return CentralSpaceLoad(this);">
-                    <?php echo escape($lang["all"])?>
-                </a>
-                <?php
-            } ?>
-        </div>
-    </div><?php pager(false); ?>
-    <div class="clearerleft"></div>
+                } ?>
+            </div>
+        </div><?php pager(false); ?>
+        <div class="clearerleft"></div>
+    </div>
 </div>
 <div class="clearerleft"> </div>
 
