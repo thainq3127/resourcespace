@@ -499,6 +499,11 @@ function tile_freetext(array $tile, string|null $tile_id = null): void
 function tile_search_thumbs($tile, $tile_id, $tile_width, $tile_height, $promoted_image = false)
 {
     ?>
+        <div data-identifier="to-remove">
+            <div class="tile-placeholder">
+                <div class="thumbs-tile-image"></div>
+            </div>
+        </div>
         <div class="tile-desc">
             <?php
             if (!empty($tile["title"])) { ?>
@@ -527,7 +532,12 @@ function tile_search_multi_or_blank($tile, $tile_id, $tile_width, $tile_height)
 {
     ?>
         <div class="tile-multi">
+            <div data-identifier="to-remove" class="tile-placeholder">
+                <div class="thumbs-tile-image"></div>
+            </div>
             <div class="tile-sub-multi">
+                <div data-identifier="to-remove"></div>
+                <div data-identifier="to-remove"></div>
             </div>
         </div>
         <div class="tile-desc">

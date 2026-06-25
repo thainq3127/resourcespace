@@ -1999,6 +1999,7 @@ function tltype_srch_generate_js_for_background_and_count(array $tile, string $t
                     // Tile background - resource(s) preview
                     console.debug('preview_resources = %o', preview_resources);
                     let tile_div = jQuery('div#' + TILE_ID);
+                    tile_div.find('[data-identifier="to-remove"]').remove();
                     if (preview_resources.length > 0) {
                         tile_div.prepend(preview_resources[0]);
                     } else {
@@ -2023,6 +2024,7 @@ function tltype_srch_generate_js_for_background_and_count(array $tile, string $t
                     }
                     console.debug('preview_resources = %o', preview_resources);
                     let tile_div = jQuery('div#' + TILE_ID);
+                    tile_div.find('[data-identifier="to-remove"]').remove();
                     for (let i = 0; i<= 2; i++) {
                         if (i == 0) {
                             if (use_placeholder == false) {

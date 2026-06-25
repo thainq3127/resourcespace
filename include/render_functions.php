@@ -7944,3 +7944,49 @@ function render_header_links(array $ctx): void
     </nav>
     <?php
 }
+
+/**
+ * Helper function for smart featured collections to update $branch_trail with all parent nodes of the selected node
+ * 
+ * @param  int      $node                  Node selected
+ * @param  int      $tree_node_level       Current level of node in tree
+ * @param  array    $field_data            Array of the smart featured collections field data
+ * @param  array    $general_url_params    URL parameters to use with generated href links
+ * @param  array    $branch_trail          Partial array of links to use for renderBreadcrumbs(), only includes the highest level link
+ * 
+ * @return array    $branch_trail          Full array of parent nodes and field links
+ * 
+ */
+function get_smart_fc_branch_trail(int $node, int $tree_node_level, array $field_data, array $general_url_params, array $branch_trail) : array
+{
+    global $baseurl_short;
+
+    $all_node_parents = get_all_ancestors_for_node($node, $tree_node_level);
+    $opened_nodes = array();
+    
+    if (is_array($all_node_parents)) 
+        {
+        foreach ($all_node_parents[0] as $p_key => $p_ref) 
+            {
+            $opened_nodes[] = $p_ref;
+            }
+
+        foreach (array_reverse($opened_nodes) as $opened_node) 
+            {
+            $subnodedata = array();
+            get_node($opened_node, $subnodedata);
+            $extra_trail = array(
+                array(
+                    "title" => i18n_get_translated($subnodedata['name']),
+                    "href"  => generateURL(
+                        "{$baseurl_short}pages/collections_featured.php",
+                        $general_url_params,
+                        array("smart_rtf" => $field_data['ref'], "smart_fc_parent" => $opened_node)
+                    ),
+                )
+            );
+            $branch_trail = array_merge($branch_trail, $extra_trail);
+            }
+        }
+    return $branch_trail;
+}

@@ -6174,6 +6174,22 @@ body:has(.collection-bar-holder.state-thumbs) #UICenter {
     .BasicsBox.SearchSticky {
         position: static;
     }
+
+    .BasicsBoxEdit {
+        display: block;
+    }
+
+    .BasicsBoxEdit .Question {
+        overflow-x: auto;
+    }
+
+    .BasicsBoxEdit .QuestionSubmit.QuestionSticky {
+        width: 100%;
+    }
+
+    .BasicsBoxEdit .FormHelp {
+        margin: 0px;
+    }
 }
 
 @media(max-width: 1420px) {
@@ -6192,5 +6208,15 @@ body:has(.collection-bar-holder.state-thumbs) #UICenter {
         padding-left: 16px;
         padding-right: 16px;
         width: unset;
+    }
+}
+
+@media(max-width: 850px) {
+
+    .Question.QuestionStickyRight {
+        height: auto;
+        border-left: none;
+        box-shadow: none;
+        padding-left: 0.5em;
     }
 }

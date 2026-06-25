@@ -198,7 +198,7 @@ function resign_all_code($confirm = true, $output = true, $output_changes_only =
                 }
 
                 $code = trim($code);
-                $sig = sign_code($code);
+                $sig = sign_code($purecode);
                 $code = "//SIG" . $sig . "\n" . $purecode;
                 if (!$output_changes_only) {
                     ps_query("update `$table` set `$column`=? where ref=?", array("s",$code,"i",$ref));

@@ -2716,8 +2716,8 @@ function update_field($resource, $field, $value, array &$errors = array(), $log 
             if (count($nodes_to_remove) > 0) {
                 delete_resource_nodes($resource, $nodes_to_remove, false);
             }
-            if (count($nodes_to_add) > 0) {
-                add_resource_nodes($resource, $nodes_to_add, false, false);
+            if (count($added_nodes) > 0) {
+                add_resource_nodes($resource, $added_nodes, false, false);
             }
             db_end_transaction("update_field_{$field}");
 
