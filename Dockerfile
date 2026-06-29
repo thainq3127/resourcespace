@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     antiword \
     poppler-utils \
     libimage-exiftool-perl \
+    tesseract-ocr \
+    tesseract-ocr-eng \
+    tesseract-ocr-vie \
     cron \
     postfix \
     wget \
