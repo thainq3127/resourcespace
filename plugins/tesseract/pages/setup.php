@@ -13,6 +13,7 @@ $page_intro = "";
 
 $page_def[] = config_add_single_ftype_select("tesseract_field", $lang["tesseract_field"], 600, false, $TEXT_FIELD_TYPES);
 $page_def[] = config_add_text_input("tesseract_extensions", $lang["tesseract_extensions"], false, 600);
+$page_def[] = config_add_text_input("tesseract_language", $lang["tesseract_language"] ?? "Tesseract OCR language", false, 600);
 
 // Do the page generation ritual
 config_gen_setup_post($page_def, $plugin_name);
