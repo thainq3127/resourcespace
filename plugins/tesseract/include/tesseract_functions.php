@@ -53,12 +53,17 @@ function tesseract_process_unprocessed()
  */
 function tesseract_process(int $resource): bool
 {
-    global $lang, $tesseract_field;
+    global $lang, $tesseract_field, $tesseract_language;
 
     // Ensure tesseract field is set before continuing
     if (!$tesseract_field) {
         logScript("tesseract: Extracted text field unset");
         return false;
+    }
+
+    $tesseract_language = trim((string)($tesseract_language ?? "eng"));
+    if ($tesseract_language === "") {
+        $tesseract_language = "eng";
     }
 
     logScript("tesseract: processing resource " . $resource);
@@ -81,12 +86,13 @@ function tesseract_process(int $resource): bool
         $folder = dirname($file_path);
         $text_base = $folder . "/tesseract";
         $text_file = $text_base . ".txt";
-        $shell_exec_cmd = "tesseract %%FILE%% %%OUTPUT%%";
+        $shell_exec_cmd = "tesseract %%FILE%% %%OUTPUT%% -l %%LANG%%";
         $shell_exec_params = [
                 "%%FILE%%" => new CommandPlaceholderArg($file_path, 'is_safe_basename'),
-                "%%OUTPUT%%" => new CommandPlaceholderArg($text_base, [CommandPlaceholderArg::class, 'alwaysValid']) // Always valid, we generated it above
+                "%%OUTPUT%%" => new CommandPlaceholderArg($text_base, [CommandPlaceholderArg::class, 'alwaysValid']), // Always valid, we generated it above
+                "%%LANG%%" => new CommandPlaceholderArg($tesseract_language, [CommandPlaceholderArg::class, 'alwaysValid'])
             ];
-        logScript("tesseract: Starting tesseract...");
+        logScript("tesseract: Starting tesseract with language " . $tesseract_language . "...");
         run_command($shell_exec_cmd, false, $shell_exec_params);
 
         if (!file_exists($text_file)) {
