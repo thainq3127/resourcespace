@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y \
     cron \
     postfix \
     wget \
+    git \
+    unzip \
+    ca-certificates \
+    composer \
     php \
     php-apcu \
     php-curl \
@@ -24,6 +28,7 @@ RUN apt-get update && apt-get install -y \
     php-intl \
     php-mysqlnd \
     php-mbstring \
+    php-xml \
     php-zip \
     libapache2-mod-php \
     ffmpeg \
@@ -42,7 +47,8 @@ RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc
 RUN printf '<Directory /var/www/>\n\
 \tOptions FollowSymLinks\n\
 </Directory>\n'\
->> /etc/apache2/sites-enabled/000-default.conf
+>> /etc/apache2/sites-enabled/000-default.conf \
+ && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ADD cronjob /etc/cron.daily/resourcespace
 
@@ -54,6 +60,10 @@ RUN rm -f index.html
 # The upstream docker image checks out a release from SVN because its build
 # context is a separate docker-only repository; here we copy the local fork.
 COPY . /var/www/html/
+
+# ResourceSpace requires Composer's vendor/autoload.php at runtime.
+# Development dependencies are intentionally skipped for the runtime image.
+RUN composer install --no-interaction --no-dev --optimize-autoloader --classmap-authoritative
 
 RUN mkdir -p filestore \
  && chmod 777 filestore \
